@@ -49,7 +49,11 @@ export default function CategoryChart() {
                 animationDuration={1000}
               >
                 {sortedData.map((entry, index) => (
-                  <Bar key={entry.name} fill={COLORS[index % COLORS.length]} />
+                  <Bar 
+                    key={entry.name} 
+                    dataKey="count" 
+                    fill={COLORS[index % COLORS.length]} 
+                  />
                 ))}
               </Bar>
             </BarChart>

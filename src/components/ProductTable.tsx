@@ -34,9 +34,11 @@ export default function ProductTable() {
         ? a[sortField].localeCompare(b[sortField])
         : b[sortField].localeCompare(a[sortField]);
     } else {
+      const aValue = Number(a[sortField]);
+      const bValue = Number(b[sortField]);
       return sortDirection === "asc" 
-        ? a[sortField] - b[sortField]
-        : b[sortField] - a[sortField];
+        ? aValue - bValue
+        : bValue - aValue;
     }
   });
 
