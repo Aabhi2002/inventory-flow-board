@@ -25,17 +25,14 @@ export default function Dashboard() {
         
         <StatsCards />
         
-        {/* Filters and Product Table Section */}
-        <FilterPanel />
-        
-        {/* Product Table */}
-        <div className="md:grid grid-cols-1 md:grid-cols-[250px_1fr] gap-4">
-          <div></div> {/* Empty div to align with filter panel */}
+        {/* Filters and Product Table Section - Side by side layout */}
+        <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-4">
+          <FilterPanel />
           <ProductTable onProductSelect={setSelectedProduct} />
         </div>
         
         {/* Category Chart */}
-        <div className="md:grid grid-cols-1 md:grid-cols-[250px_1fr] gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] gap-4 mt-6">
           <div></div> {/* Empty div to align with filter panel */}
           <CategoryChart />
         </div>
