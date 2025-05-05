@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useProducts } from "@/context/ProductContext";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,7 +13,11 @@ import ProductForm from "./ProductForm";
 const LOW_STOCK_THRESHOLD = 10;
 const PAGE_SIZE = 7;
 
-export default function ProductTable() {
+interface ProductTableProps {
+  onProductSelect?: (productId: string) => void;
+}
+
+export default function ProductTable({ onProductSelect }: ProductTableProps = {}) {
   const { filteredProducts, deleteProducts, selectedProducts, setSelectedProducts } = useProducts();
   const [currentPage, setCurrentPage] = useState(1);
   const [sortField, setSortField] = useState<keyof Product>("name");
@@ -166,8 +170,12 @@ export default function ProductTable() {
           <TableBody>
             {currentProducts.length > 0 ? (
               currentProducts.map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell>
+                <TableRow 
+                  key={product.id} 
+                  className={onProductSelect ? "cursor-pointer" : ""}
+                  onClick={() => onProductSelect && onProductSelect(product.id)}
+                >
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <Checkbox 
                       checked={selectedProducts.includes(product.id)}
                       onCheckedChange={() => handleSelectRow(product.id)}
@@ -185,7 +193,7 @@ export default function ProductTable() {
                       )}
                     </div>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-end space-x-2">
                       <Button 
                         variant="ghost" 
