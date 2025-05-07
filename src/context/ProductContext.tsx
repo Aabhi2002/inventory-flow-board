@@ -1,6 +1,5 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { Product, initialProducts, categories } from "../data/mockData";
+import { Product, initialProducts, categories as initialCategories } from "../data/mockData";
 import { toast } from "@/components/ui/sonner";
 
 interface ProductContextType {
@@ -14,6 +13,7 @@ interface ProductContextType {
   selectedProducts: string[];
   setSelectedProducts: React.Dispatch<React.SetStateAction<string[]>>;
   categoryData: { name: string; count: number }[];
+  addCategory: (category: string) => void;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -21,12 +21,13 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(initialProducts);
+  const [categoriesState, setCategoriesState] = useState<string[]>(initialCategories);
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [categoryData, setCategoryData] = useState<{ name: string; count: number }[]>([]);
 
   // Generate category data for the chart
   useEffect(() => {
-    const categoryCount = categories.map(category => {
+    const categoryCount = categoriesState.map(category => {
       const count = products.filter(product => product.category === category).length;
       return { name: category, count };
     });
@@ -42,6 +43,12 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
     
     setProducts(prev => [...prev, newProduct]);
     toast.success("Product added successfully!");
+  };
+
+  // Add a new category
+  const addCategory = (category: string) => {
+    setCategoriesState(prev => [...prev, category]);
+    toast.success(`Category "${category}" added successfully!`);
   };
 
   // Update an existing product
@@ -70,7 +77,8 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
         addProduct,
         updateProduct,
         deleteProducts,
-        categories,
+        categories: categoriesState,
+        addCategory,
         selectedProducts,
         setSelectedProducts,
         categoryData,

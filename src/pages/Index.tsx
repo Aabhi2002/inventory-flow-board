@@ -1,11 +1,10 @@
-
 import { ProductProvider } from "@/context/ProductContext";
 import Dashboard from "@/components/Dashboard";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen bg-background">
       <ProductProvider>
         <Dashboard />
         <SonnerToaster />

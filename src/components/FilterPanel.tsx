@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useProducts } from "@/context/ProductContext";
 import { Button } from "@/components/ui/button";
@@ -8,13 +7,13 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Filter } from "lucide-react";
-import ProductForm from "./ProductForm";
+import CategoryForm from "./CategoryForm";
 
 export default function FilterPanel() {
   const { products, categories, setFilteredProducts } = useProducts();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [isProductFormOpen, setIsProductFormOpen] = useState(false);
+  const [isCategoryFormOpen, setIsCategoryFormOpen] = useState(false);
 
   // Apply filters whenever filter states change
   useEffect(() => {
@@ -59,9 +58,14 @@ export default function FilterPanel() {
     <div className="space-y-4">
       <div className="flex justify-between items-center md:hidden">
         <h2 className="text-2xl font-bold">Filters</h2>
-        <Button onClick={() => setIsProductFormOpen(true)}>
-          <Plus className="h-4 w-4 mr-1" />
-          Add Product
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="h-8"
+          onClick={() => setIsCategoryFormOpen(true)}
+        >
+          <Plus className="h-3.5 w-3.5 mr-1" />
+          Add Category
         </Button>
       </div>
       
@@ -75,10 +79,10 @@ export default function FilterPanel() {
                   variant="outline" 
                   size="sm" 
                   className="h-8"
-                  onClick={() => setIsProductFormOpen(true)}
+                  onClick={() => setIsCategoryFormOpen(true)}
                 >
                   <Plus className="h-3.5 w-3.5 mr-1" />
-                  Add
+                  Add Category
                 </Button>
               </div>
             </div>
@@ -144,10 +148,10 @@ export default function FilterPanel() {
         </CardContent>
       </Card>
       
-      {/* Product Form Dialog */}
-      <ProductForm 
-        isOpen={isProductFormOpen} 
-        onClose={() => setIsProductFormOpen(false)} 
+      {/* Category Form Dialog */}
+      <CategoryForm 
+        isOpen={isCategoryFormOpen} 
+        onClose={() => setIsCategoryFormOpen(false)} 
       />
     </div>
   );

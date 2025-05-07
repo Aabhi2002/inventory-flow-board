@@ -1,4 +1,3 @@
-
 import React from "react";
 import FilterPanel from "./FilterPanel";
 import ProductTable from "./ProductTable";
@@ -14,10 +13,10 @@ export default function Dashboard() {
   const [selectedProduct, setSelectedProduct] = React.useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-transparent py-8">
       <MainNav />
       
-      <div className="container mx-auto py-6 space-y-6">
+      <div className="container mx-auto py-6 space-y-6 bg-card rounded-xl shadow-md p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <h1 className="text-3xl font-bold">Inventory Management Dashboard</h1>
           <SearchBar />

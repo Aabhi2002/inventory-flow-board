@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-import { Bell, Menu, X, Home, Package, BarChart, Settings, FileDown, FileUp } from "lucide-react";
+import { Bell, Menu, X, Home, Package, BarChart, Settings, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { 
   NavigationMenu, 
@@ -9,17 +8,10 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle 
 } from "@/components/ui/navigation-menu";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 
 export default function MainNav() {
+  const [isDarkMode, setIsDarkMode] = useState(() => document.documentElement.classList.contains("dark"));
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNotificationsClick = () => {
@@ -37,7 +29,7 @@ export default function MainNav() {
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full border-b bg-white shadow-sm">
+    <header className="sticky top-0 z-30 w-full border-b bg-background shadow-sm">
       <div className="container mx-auto flex h-16 items-center justify-between">
         {/* Logo and Brand */}
         <div className="flex items-center gap-2">
@@ -95,24 +87,26 @@ export default function MainNav() {
             <span className="sr-only">Notifications</span>
           </Button>
           
-          {/* Import/Export Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="transition-all hover:bg-primary hover:text-primary-foreground">
-                Import/Export
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Data Management</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleImportExportClick}>
-                <FileUp className="mr-2 h-4 w-4" /> Import Data
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={handleImportExportClick}>
-                <FileDown className="mr-2 h-4 w-4" /> Export Data
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Dark Mode Toggle */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => {
+              const newMode = !isDarkMode;
+              if (newMode) {
+                document.documentElement.classList.add("dark");
+                localStorage.setItem('theme', 'dark');
+              } else {
+                document.documentElement.classList.remove("dark");
+                localStorage.setItem('theme', 'light');
+              }
+              setIsDarkMode(newMode);
+            }}
+            className="transition-all hover:bg-primary hover:text-primary-foreground"
+          >
+            {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            <span className="sr-only">Toggle dark mode</span>
+          </Button>
           
           {/* Mobile Menu Button */}
           <Button
@@ -133,7 +127,7 @@ export default function MainNav() {
       
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t">
+        <div className="md:hidden bg-background border-t">
           <div className="container py-4 space-y-2">
             <a href="#" className="flex items-center px-4 py-2 hover:bg-gray-100 rounded-md">
               <Home className="mr-3 h-4 w-4" /> Dashboard

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProducts } from "@/context/ProductContext";
@@ -24,7 +23,7 @@ export default function StatsCards() {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <Card className="bg-white">
+      <Card className="bg-card transition-shadow duration-300 hover:shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total Inventory Value</CardTitle>
           <Database className="h-4 w-4 text-muted-foreground" />
@@ -35,7 +34,7 @@ export default function StatsCards() {
         </CardContent>
       </Card>
       
-      <Card className="bg-white">
+      <Card className="bg-card transition-shadow duration-300 hover:shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total Products</CardTitle>
           <Import className="h-4 w-4 text-muted-foreground" />
@@ -46,7 +45,7 @@ export default function StatsCards() {
         </CardContent>
       </Card>
       
-      <Card className="bg-white">
+      <Card className="bg-card transition-shadow duration-300 hover:shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Low Stock Items</CardTitle>
           <Undo className="h-4 w-4 text-muted-foreground" />
@@ -57,7 +56,7 @@ export default function StatsCards() {
         </CardContent>
       </Card>
       
-      <Card className="bg-white">
+      <Card className="bg-card transition-shadow duration-300 hover:shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Out of Stock</CardTitle>
           <Search className="h-4 w-4 text-muted-foreground" />

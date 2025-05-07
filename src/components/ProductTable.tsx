@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useProducts } from "@/context/ProductContext";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Product } from "@/data/mockData";
-import { ArrowUp, ArrowDown, Bell, Edit, Trash2 } from "lucide-react";
+import { ArrowUp, ArrowDown, Bell, Edit, Trash2, Plus } from "lucide-react";
 import ProductForm from "./ProductForm";
 
 const LOW_STOCK_THRESHOLD = 10;
@@ -120,7 +119,14 @@ export default function ProductTable({ onProductSelect }: ProductTableProps = {}
   };
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border bg-card">
+      {/* Add Product Button */}
+      <div className="flex items-center justify-between px-4 py-3">
+        <h2 className="text-lg font-medium">Products</h2>
+        <Button variant="outline" size="sm" onClick={() => setIsProductFormOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" /> Add Product
+        </Button>
+      </div>
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
@@ -228,8 +234,8 @@ export default function ProductTable({ onProductSelect }: ProductTableProps = {}
       </div>
       
       {/* Pagination */}
-      <div className="flex items-center justify-between px-4 py-2 border-t">
-        <div className="text-sm text-muted-foreground">
+      <div className="flex items-center justify-between px-4 py-2 border-t bg-card">
+        <div className="text-sm text-foreground">
           Showing page {currentPage} of {totalPages}
         </div>
         <div className="space-x-2">
@@ -318,7 +324,7 @@ export default function ProductTable({ onProductSelect }: ProductTableProps = {}
       
       {/* Floating action button for batch delete */}
       {selectedProducts.length > 0 && (
-        <div className="fixed bottom-4 right-4 bg-white rounded-md shadow-lg p-3 border">
+        <div className="fixed bottom-4 right-4 bg-card rounded-md shadow-lg p-3 border">
           <div className="flex items-center space-x-2">
             <span className="text-sm font-medium">
               {selectedProducts.length} selected

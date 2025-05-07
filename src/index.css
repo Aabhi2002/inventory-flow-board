@@ -99,3 +99,46 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Utility for dark-mode shine hover effect */
+@layer utilities {
+  .shine {
+    /* radial gradient centered at custom CSS variables --x and --y */
+    background-image: radial-gradient(
+      300px circle at var(--x) var(--y),
+      rgb(147 197 253) 0%, /* light blue (#93C5FD) */
+      transparent 100%
+    );
+  }
+
+  /* Holographic card hover effect */
+  .holographic-card {
+    @apply relative overflow-hidden border-2 border-border rounded-lg;
+    transition: all 0.5s ease;
+  }
+  .holographic-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      0deg,
+      transparent,
+      transparent 30%,
+      rgba(0,255,255,0.3)
+    );
+    transform: rotate(-45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+  }
+  .holographic-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0,255,255,0.5);
+  }
+  .holographic-card:hover::before {
+    opacity: 1;
+    transform: rotate(-45deg) translateY(100%);
+  }
+}
